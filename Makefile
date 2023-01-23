@@ -23,7 +23,7 @@ dirs:
 modulos:	\
 	$(OBJ)/afd.o	\
 	$(OBJ)/operacoes.o \
-	$(OBJ)/utils/entrada_saida.o \
+#	$(OBJ)/utils/entrada_saida.o \
 
 $(OBJ)/%.o: $(SRC)/%.c $(INCLUDE)/%.h
 	gcc $(FLAGS) -c $< -I $(INCLUDE) -o $@
