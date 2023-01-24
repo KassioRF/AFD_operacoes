@@ -23,28 +23,32 @@ dirs:
 modulos:	\
 	$(OBJ)/afd.o	\
 	$(OBJ)/operacoes.o \
-#	$(OBJ)/utils/entrada_saida.o \
+	$(OBJ)/utils/entrada_saida.o \
+
+	
 
 $(OBJ)/%.o: $(SRC)/%.c $(INCLUDE)/%.h
+	@echo ::::MODULOS .src/:
 	gcc $(FLAGS) -c $< -I $(INCLUDE) -o $@
+
+$(OBJ)/utils/%.o: $(SRC)/utils/%.c $(INCLUDE)/utils/%.h
+	@echo ::::MODULOS .src/utils:
+	gcc $(FLAGS) -c $< -I $(INCLUDE)/utils -o $@
+
 
 # compilando o app 
 afdtool:
-	gcc $(FLAGS) $(APP)/$(APPNAME).c $(OBJ)/*.o -I $(INCLUDE) -o $(APPNAME)
+	@echo ::::APP:
+	gcc $(FLAGS) $(APP)/$(APPNAME).c $(OBJ)/*.o $(OBJ)/*/*.o \
+	-I $(INCLUDE) -o \
+	 $(APPNAME)
 
 
 test_%:	
 	echo $@
-	gcc $(FLAGS) $(TEST)/$@.c $(OBJ)/*.o -I $(INCLUDE) -o $(TEST)/bin/$@	
+	gcc $(FLAGS) $(TEST)/$@.c $(OBJ)/*.o $(OBJ)/*/*.o -I $(INCLUDE) -o $(TEST)/bin/$@	
 	$(TEST)/bin/$@	
 	rm -rf $(TEST)/bin/*
-
-# compilar /tests
-# $(TEST)/bin/%: $(TEST)/%.c
-# 	echo entrou
-# 	gcc $(FLAGS) $< $(OBJ)/*.o -I $(INCLUDE) -o $@
-# 	./$@
-# 	rm -rf $(TEST)/bin/*
 
 # Rodar o app: 
 # $ make run
