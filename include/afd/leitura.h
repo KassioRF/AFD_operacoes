@@ -1,8 +1,13 @@
+#ifndef LEITURA_H
+#define LEITURA_H
+
 #include "afd.h"
 
-AFD *afd_ler(char *nome_arquivo);
+AFD *Afd_ler(char *nome_arquivo);
 void ler_estados(AFD *Afd, char *linha, FILE *arquivo);
 void ler_simbolos(AFD *Afd, char *linha, FILE *arquivo);
 void ler_transicoes(AFD *Afd, char *linha, FILE *arquivo);
 void ler_estado_inicial(AFD *Afd, char *linha, FILE *arquivo);
 void ler_estados_final(AFD *Afd, char *linha, FILE *arquivo);
+
+#endif

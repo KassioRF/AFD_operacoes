@@ -1,4 +1,5 @@
-#include "../headers.h"
+#ifndef AFD_H
+#define AFD_H
 
 /** Estrutura para o AFD */
 typedef struct Estado_struct {
@@ -12,6 +13,7 @@ typedef struct Estado_struct {
 
 
 typedef struct AFD_struct {
+  char *nome;
   Estado *Estados;
   char **Simbolos;
   int **Transicoes;
@@ -32,3 +34,5 @@ Estado *get_estados_final(AFD *Afd);
 
 void Afd_destruct(AFD *Afd);
 void Afd_toString(AFD *Afd);
+
+#endif

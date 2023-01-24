@@ -1,20 +1,27 @@
 #include "../headers.h"
+#include "../utils/argumentos.h"
 #include "leitura.h"
 
-
-AFD *afd_ler(char *nome_arquivo) {  
+AFD *Afd_ler(char *nome_arquivo) {  
   
   FILE *arquivo;
+  char *caminho;
+  caminho = get_dir_arquivo(nome_arquivo, 0);
 
-  if ( (arquivo = fopen(nome_arquivo, "r")) == NULL) {
-    printf("\t :::: ERRO: Arquivo não encontrado: %s ::::\n\n", nome_arquivo);
+  if ( (arquivo = fopen(caminho, "r")) == NULL) {
+    printf("\t :::: ERRO: Arquivo nao encontrado: %s ::::\n", nome_arquivo);
+    printf("\t :::: Certifique-se de que o arquivo esta no diretorio: %s \
+      \n\n", INPUT_DIR );
+
     exit(EXIT_FAILURE);
 
   }
-
-  AFD *Afd = inicializar_AFD();
-  char linha[MAXCHAR];
   
+  AFD *Afd = inicializar_AFD();
+  Afd->nome = remover_extensao_string(nome_arquivo);
+
+
+  char linha[MAXCHAR];  
   /* 1. ESTADOS */
   ler_estados(Afd, linha, arquivo);
   /* 2. ALFABETO DE ENTRADA */
@@ -30,6 +37,7 @@ AFD *afd_ler(char *nome_arquivo) {
   Afd_toString(Afd);
 
   fclose(arquivo);
+  free(caminho);
 
   return Afd;
   //Afd_destruct(Afd); // return afd

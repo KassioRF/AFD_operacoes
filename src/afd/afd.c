@@ -106,7 +106,7 @@ void Afd_destruct(AFD *Afd) {
 
 void Afd_toString(AFD *Afd) {
   
-  printf("\n\t :: AFD ::\n");
+  printf("\n\t :: AFD: <%s> ::\n", Afd->nome);
   
   printf("-> %d Estados\n", Afd->nEstados);
   

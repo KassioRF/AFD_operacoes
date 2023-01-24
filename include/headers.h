@@ -1,4 +1,6 @@
-//#define INPUT_DIR "./afds_entrada/"
+#ifndef HEADERS_H
+#define HEADERS_H
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -10,4 +12,7 @@
 
 
 #define INPUT_DIR "./afds_entrada/"
+#define OUTPUT_DIR "./afds_saida/"
 #define MAXCHAR 255
+
+#endif

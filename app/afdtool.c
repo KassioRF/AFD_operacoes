@@ -1,24 +1,30 @@
 #include "headers.h"
 #include "utils/argumentos.h"
 #include "afd/leitura.h"
+#include "afd/exportar.h"
 
 
 int main() {
   printf("\n\t ::: AFD tool ::: \n ");
   setlocale(LC_ALL, "Portuguese");
   
-  char *nome = "afd0.txt";
-  char *nome_arquivo; 
-  nome_arquivo = get_dir_entrada(nome);
-
+  char *nome_arquivo = "afd1.txt";
   AFD *Afd;
+  
+  /*--------------------------------------------------*/
+  // LER AFD
+  Afd = Afd_ler(nome_arquivo);
+  // Exportar .dot
+  Afd_exportar(Afd);
 
-  Afd = afd_ler(nome_arquivo);
-
+  /*---------------------------------------------------*/
+  // OPERACOES
 
   /* free('s) */  
   Afd_destruct(Afd);
   printf("\n\n ");
-  free(nome_arquivo);
+  
+
   return 0;
+
 }

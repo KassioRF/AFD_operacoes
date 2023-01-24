@@ -25,6 +25,7 @@ dirs:
 modulos:	\
 	$(OBJ)/afd/afd.o \
 	$(OBJ)/afd/leitura.o \
+	$(OBJ)/afd/exportar.o \
 	$(OBJ)/operacoes/operacoes.o \
 	$(OBJ)/utils/argumentos.o \
 
