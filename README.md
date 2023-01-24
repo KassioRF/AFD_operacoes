@@ -22,7 +22,7 @@ FTC - Trabalho Prático 2023
     
    - Segue a mesma estrutura de pastas dos modulos, mas não quer dizer que um .c tenha que ter obrigatóriamente um .h.
     
-    - Ex: Mesmo que tenha um modulo.c para cada operação acredito que eles possam compartilhar o mesmo .h.
+   - Ex: Mesmo que tenha um modulo.c para cada operação acredito que eles possam compartilhar o mesmo .h.
 
 
   ### Arquivos de entrada e saída:
