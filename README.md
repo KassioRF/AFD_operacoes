@@ -10,11 +10,11 @@ FTC - Trabalho Prático 2023
 
   Modulos: [src/](./src/)
 
-   - [src/afd](./src/afd): Estrutura de dados para AFD e metodos de leitura e escrita.
+   - [src/afd/](./src/afd): Estrutura de dados para AFD e metodos de leitura e escrita.
 
-   - [src/operacoes](./src/operacoes): Operações sobre AFD's: União, Interseção, Complemento e Minimização.
+   - [src/operacoes/](./src/operacoes): Operações sobre AFD's: União, Interseção, Complemento e Minimização.
     
-   - [src/utils](./src/utils): Funções/Bilbiotecas auxiliares.
+   - [src/utils/](./src/utils): Funções/Bilbiotecas auxiliares.
     
 
 
