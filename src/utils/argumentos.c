@@ -1,6 +1,6 @@
 
-#include "../constants.h"
-#include "entrada_saida.h"
+#include "../headers.h"
+#include "argumentos.h"
 
 /** 
 * Implementa os metodos auxiliares para leitura e escrita arquivos.

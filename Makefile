@@ -15,40 +15,54 @@ TEST= ./tests
 FLAGS = -O3 -Wall
 
 all: dirs modulos afdtool
-# compilando src
+	@ echo :: MAKE SUCCESS
 
 dirs:
 	mkdir -p $(OBJ)/utils
+	mkdir -p $(OBJ)/afd
+	mkdir -p $(OBJ)/operacoes
 
 modulos:	\
-	$(OBJ)/afd.o	\
-	$(OBJ)/operacoes.o \
-	$(OBJ)/utils/entrada_saida.o \
+	$(OBJ)/afd/afd.o \
+	$(OBJ)/afd/leitura.o \
+	$(OBJ)/operacoes/operacoes.o \
+	$(OBJ)/utils/argumentos.o \
 
 	
-
+# ./src
 $(OBJ)/%.o: $(SRC)/%.c $(INCLUDE)/%.h
 	@echo ::::MODULOS .src/:
 	gcc $(FLAGS) -c $< -I $(INCLUDE) -o $@
 
+# ./src/utils
 $(OBJ)/utils/%.o: $(SRC)/utils/%.c $(INCLUDE)/utils/%.h
 	@echo ::::MODULOS .src/utils:
 	gcc $(FLAGS) -c $< -I $(INCLUDE)/utils -o $@
+
+# ./src/afd
+$(OBJ)/afd/%.o: $(SRC)/afd/%.c $(INCLUDE)/afd/%.h
+	@echo ::::MODULOS .src/afd:
+	gcc $(FLAGS) -c $< -I $(INCLUDE)/afd -o $@
+
+# ./src/operacoes
+$(OBJ)/operacoes/%.o: $(SRC)/operacoes/%.c $(INCLUDE)/operacoes/%.h
+	@echo ::::MODULOS .src/operacoes:
+	gcc $(FLAGS) -c $< -I $(INCLUDE)/operacoes -o $@
 
 
 # compilando o app 
 afdtool:
 	@echo ::::APP:
-	gcc $(FLAGS) $(APP)/$(APPNAME).c $(OBJ)/*.o $(OBJ)/*/*.o \
-	-I $(INCLUDE) -o \
-	 $(APPNAME)
-
+	gcc $(FLAGS) $(APP)/$(APPNAME).c $(OBJ)/*/*.o \
+	-I $(INCLUDE) \
+	-o $(APPNAME)
+	
 
 test_%:	
 	echo $@
-	gcc $(FLAGS) $(TEST)/$@.c $(OBJ)/*.o $(OBJ)/*/*.o -I $(INCLUDE) -o $(TEST)/bin/$@	
+	gcc $(FLAGS) $(TEST)/$@.c $(OBJ)/*/*.o -I $(INCLUDE) -o $(TEST)/bin/$@	
 	$(TEST)/bin/$@	
-	rm -rf $(TEST)/bin/*
+	@ rm -rf $(TEST)/bin/*
 
 # Rodar o app: 
 # $ make run

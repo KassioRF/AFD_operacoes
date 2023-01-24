@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <locale.h>
+#include <unistd.h>
+#include <limits.h>
 
 
 #define INPUT_DIR "./afds_entrada/"

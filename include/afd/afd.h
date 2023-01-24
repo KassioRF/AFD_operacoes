@@ -1,4 +1,4 @@
-#include "constants.h"
+#include "../headers.h"
 
 /** Estrutura para o AFD */
 typedef struct Estado_struct {
@@ -25,13 +25,6 @@ typedef struct AFD_struct {
 
 /** Metodos: */
 AFD *inicializar_AFD();
-void afd_ler();
-void set_estados(AFD *Afd, char *linha, FILE *arquivo);
-void set_simbolos(AFD *Afd, char *linha, FILE *arquivo);
-void set_transicoes(AFD *Afd, char *linha, FILE *arquivo);
-void set_estado_inicial(AFD *Afd, char *linha, FILE *arquivo);
-void set_estados_final(AFD *Afd, char *linha, FILE *arquivo);
-
 int get_estadoID(AFD *Afd, char *estado_nome);
 int get_simboloID(AFD *Afd, char *simbolo_nome);
 Estado get_estado_inicial(AFD *Afd);
