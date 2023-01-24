@@ -94,21 +94,27 @@ void ler_transicoes(AFD *Afd, char *linha, FILE *arquivo) {
 
   Afd->nTransicoes = atoi(fgets(linha, MAXCHAR, arquivo));
   
-  // Aloca uma matriz de transicoes
-  // Os enderecos sao acessados pelos ids dos estados e simbolos
-  // Ex: transicao[estadoid][simbolo] == estado_destino
+  /* Aloca uma matriz de transicoes */
+  /* Os enderecos sao acessados pelos ids dos estados e simbolos */
+  /* Ex: transicao[estadoid][simbolo] == estado_destino */
   Afd->Transicoes = malloc(Afd->nEstados * sizeof(int*));  
   
-  for( int i = 0; i < Afd->nSimbolos; i++ ) {
+  /* inicializa transicoes[estado][simbolo] com destino -1 ( vazio )  */
+  for( int estado = 0; estado < Afd->nSimbolos; estado++ ) {
     
-    Afd->Transicoes[i] = malloc(sizeof(int));
+    Afd->Transicoes[estado] = malloc(sizeof(int));
+    
+    for ( int simbolo = 0; simbolo < Afd-> nSimbolos; simbolo++ ) {
+      Afd->Transicoes[estado][simbolo] = -1;
+
+    }
   
   }
 
 
   for ( int i = 0; i < Afd->nTransicoes; i++ ) {
-    // obtem tupla da transicao:
-    // t(origem,simbolo,destino)
+    /* obtem tupla da transicao: */
+    /* t(origem,simbolo,destino) */
     char *transicoes = strtok(fgets(linha, MAXCHAR, arquivo), "\n");
 
     char *splitStr = strtok(transicoes, " ");
@@ -126,7 +132,7 @@ void ler_transicoes(AFD *Afd, char *linha, FILE *arquivo) {
     
     }
 
-    // atribui ao AFD a transicao para o estado_id  quando le o simbolo_id
+    /* atribui ao AFD a transicao para o estado_id  quando le o simbolo_id */
     int estadoOrigem_ID = get_estadoID(Afd, transicao[0]);
     int simbolo_ID = get_simboloID(Afd, transicao[1]);
     int estadoDestino_ID = get_estadoID(Afd, transicao[2]);

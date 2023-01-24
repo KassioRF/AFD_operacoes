@@ -23,8 +23,6 @@ int main() {
   /* free('s) */  
   Afd_destruct(Afd);
   printf("\n\n ");
-  
-
   return 0;
 
 }

@@ -94,8 +94,8 @@ void Afd_destruct(AFD *Afd) {
   for ( int i = 0; i < Afd->nSimbolos; i++ ) 
     { free(Afd->Simbolos[i]); }
 
-  for ( int i = 0; i < Afd->nEstados; i++ ) 
-    { free(Afd->Transicoes[i]); }
+  for ( int estado = 0; estado < Afd->nEstados; estado++ ) 
+    { free(Afd->Transicoes[estado]); }
 
   free(Afd->Estados);
   free(Afd->Simbolos);
@@ -110,19 +110,24 @@ void Afd_toString(AFD *Afd) {
   
   printf("-> %d Estados\n", Afd->nEstados);
   
-  for (int i=0; i < Afd->nEstados; i++ ) {    
+  for ( int i = 0; i < Afd->nEstados; i++ ) {    
     printf("\t[%d] %s\n", Afd->Estados[i].ID, Afd->Estados[i].nome ); }
 
   printf("-> %d Simbolos\n", Afd->nSimbolos);
   
-  for (int i=0; i < Afd->nSimbolos; i++ ) {    
+  for ( int i = 0; i < Afd->nSimbolos; i++ ) {    
     printf("\t[%d] %s\n", i, Afd->Simbolos[i] ); }
 
   printf("-> %d Transicoes\n", Afd->nTransicoes);
   
-  for (int i=0; i < Afd->nEstados; i++) {
-    for (int j=0; j< Afd->nSimbolos; j++) {
-      printf("\t(%d,%d): %d\n", i, j, Afd->Transicoes[i][j]); }
+  for ( int estado = 0; estado < Afd->nEstados; estado++ ) {
+    for (int simbolo = 0; simbolo < Afd->nSimbolos; simbolo++) {
+      if ( Afd->Transicoes[estado][simbolo] != -1 ) {
+        printf("\t(%s,%s): %s\n", \
+          Afd->Estados[estado].nome, \
+          Afd->Simbolos[simbolo], \
+          Afd->Estados[Afd->Transicoes[estado][simbolo]].nome); }
+      }
   }
 
   printf("-> EstadoInicial \n\t %s \n", get_estado_inicial(Afd).nome );

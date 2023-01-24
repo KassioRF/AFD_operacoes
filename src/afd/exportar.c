@@ -48,14 +48,16 @@ void escrever_simbolos(AFD *Afd, FILE *arquivo) {
 void escrever_transicoes(AFD *Afd, FILE *arquivo) {
   fprintf( arquivo, "\n%d", Afd->nTransicoes );
 
-  for ( int i = 0; i < Afd->nEstados; i++ ) {
-    for ( int j = 0; j < Afd->nSimbolos; j++ ) {
+  for ( int estado = 0; estado < Afd->nEstados; estado++ ) {
+    for ( int simbolo = 0; simbolo < Afd->nSimbolos; simbolo++ ) {
       
-      if ( Afd->Transicoes[i][j] != -1 ) { 
+      /* @DUVIDA: Escrever estados com destino vazio ? */
+      /* Verificar um arquivo no formato do graphiz que possui estado vazio */
+      if ( Afd->Transicoes[estado][simbolo] != -1 ) { 
         fprintf( arquivo, "\n%s %s %s", \
-          Afd->Estados[i].nome, \
-          Afd->Simbolos[j], \
-          Afd->Estados[Afd->Transicoes[i][j]].nome );
+          Afd->Estados[estado].nome, \
+          Afd->Simbolos[simbolo], \
+          Afd->Estados[Afd->Transicoes[estado][simbolo]].nome );
         
       }
   
