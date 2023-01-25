@@ -76,4 +76,5 @@ FTC - Trabalho Prático 2023
 
   #### FUNCIONALIDADE 4: minimização
 
-  #### FUNCIONALIDADE 5: reconhecimento de palavra
+  #### FUNCIONALIDADE 5: reconhecimento de palavra (ok!)
+  - [Reconhecer Palavras]((./src/operacoes/reconhecer_palavra.c))
