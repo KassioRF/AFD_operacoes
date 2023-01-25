@@ -67,7 +67,7 @@ FTC - Trabalho Prático 2023
   #### FUNCIONALIDADE 1: visualização (ok!)
 
   - [Ler AFD](./src/afd/leitura.c)
-  - [Exportar .dot]((./src/afd/exportar.c))
+  - [Exportar .dot](./src/afd/exportar.c)
 
 
   #### FUNCIONALIDADE 2: complemento
@@ -77,4 +77,4 @@ FTC - Trabalho Prático 2023
   #### FUNCIONALIDADE 4: minimização
 
   #### FUNCIONALIDADE 5: reconhecimento de palavra (ok!)
-  - [Reconhecer Palavras]((./src/operacoes/reconhecer_palavra.c))
+  - [Reconhecer Palavras](./src/operacoes/reconhecer_palavra.c)
