@@ -20,7 +20,6 @@ void reconhecer_palavras(AFD *Afd, char *nome_arq_entrada) {
   char *caminho_saida = get_dir_arquivo(nome_arq_entrada,3);
   FILE *arq_resultado = fopen(caminho_saida, "w");
 
-
   char linha[1024];
 
   // Para cada linha reconhece uma palavra
@@ -58,8 +57,8 @@ void reconhecer_palavras(AFD *Afd, char *nome_arq_entrada) {
 
 int reconhece_palavra(AFD *Afd, char *palavra) {
 
-
   Estado EstadoAtual = get_estado_inicial(Afd);  
+  
   char *simbolo = palavra;
   
   // Caminha pelas transicoes a cada simbolo lido
