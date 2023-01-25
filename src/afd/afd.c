@@ -3,9 +3,12 @@
 
 
 
+
+
 /* 1. ESTADOS ------------------------------------------------------- */
 
-int get_estadoID(AFD *Afd, char *estado_nome) {
+/* Retorna o indice onde se encontra o estado_nome no vetor Afd->Estados[] */
+int get_estado_IDX(AFD *Afd, char *estado_nome) {
 
   for ( int i = 0; i < Afd->nEstados; i++ ) {
 
@@ -13,28 +16,57 @@ int get_estadoID(AFD *Afd, char *estado_nome) {
 
   }
   
-  printf("\n\t :::: ERRO: <get_estadoID()> Estado não encontrado ::::\n");
+  printf("\n\t :::: ERRO: <get_estado_IDX()> Estado não encontrado ::::\n");
   exit(EXIT_FAILURE);
 
 };
 
 /* 2. SIMBOLOS ------------------------------------------------------- */
 
-int get_simboloID(AFD *Afd, char *simbolo_nome) {
+/* Retorna o indice onde se encontra o simbolo_nome no vetor Afd->Simbolos[] */
+int get_simboloIDX(AFD *Afd, char simbolo_nome) {
 
   for ( int i = 0; i < Afd->nSimbolos; i++ ) {
-
-    if (strcmp(Afd->Simbolos[i], simbolo_nome) == 0) { return i; }
-
+    // Obs: Acesso ao simbolo [i][0] para comparar char com char
+    // Como simbolos possuem tamanho 1 a comparacao sempre sera valida
+    if ( Afd->Simbolos[i][0] == simbolo_nome ) { return i; }
   }
   
-  printf("\n\t :::: ERRO: <get_simboloID()> Simbolo não encontrado ::::\n");
+  printf("\n\t :::: ERRO: <get_simboloIDX()> Simbolo não encontrado ::::\n");
   exit(EXIT_FAILURE);
 
 }
 
 /* 3. TRANSICOES ------------------------------------------------------- */
 
+/**/
+Estado get_transicao( AFD *Afd, Estado *estado, char simbolo ) {
+
+  int estado_IDX = get_estado_IDX(Afd, estado->nome);
+  int simbolo_IDX = get_simboloIDX(Afd, simbolo);
+
+  int estado_destino_idx = Afd->Transicoes[estado_IDX][simbolo_IDX];
+
+  if ( estado_destino_idx == - 1 ) {
+    return transicao_EstadoERRO();
+  }
+  
+  return Afd->Estados[estado_destino_idx];
+  
+}
+
+
+void set_transicao(AFD *Afd, char *estadoOrigem, \
+                    char simbolo, char *estadoDestino) {
+
+  /* atribui ao AFD a transicao para o estado_id  quando le o simbolo_id */
+  int estadoOrigem_IDX = get_estado_IDX(Afd, estadoOrigem);
+  int simbolo_IDX = get_simboloIDX(Afd, simbolo);
+  int estadoDestino_IDX = get_estado_IDX(Afd, estadoDestino);
+
+  Afd->Transicoes[estadoOrigem_IDX][simbolo_IDX] = estadoDestino_IDX;
+
+}
 
 /* 4. ESTADO INICIAL ------------------------------------------------------- */
 
@@ -84,6 +116,15 @@ AFD *inicializar_AFD() {
 
   return Afd;
   
+}
+
+Estado transicao_EstadoERRO() {
+  Estado EstadoErro;
+  
+  EstadoErro.Final = 0;
+  EstadoErro.Erro = 1;
+
+  return EstadoErro;
 }
 
 void Afd_destruct(AFD *Afd) {

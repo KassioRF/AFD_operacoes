@@ -8,18 +8,43 @@
 
 /* ========================================================================== */
 
-/** Concatena o diretorio dos afds de entrada com o
-* nome do arquivo que contem o afd  
+/** Concatena a string do diretorio de entrada com o nome do arquivo de entrada.
+* O inteiro "tipo" especifica qual diretorio deve ser adicionado 
+* antes do nome do arquivo:
+*
+* @param tipo:
+*         0 : Para AFD de entrada
+*         1 : Para AFD de saida
+*         2 : Para Palavra de entrada 
+*         3 : Para Palavra de saida
 */
+
 char *get_dir_arquivo(char *nome_arquivo, int tipo) {
   char *caminho_arquivo = (char*)malloc(MAXCHAR*sizeof(char));
   if (tipo == 0) 
-    { strcpy(caminho_arquivo,INPUT_DIR); }
-  else { 
-    strcat(nome_arquivo, ".dot" );  
-    strcpy(caminho_arquivo,OUTPUT_DIR); 
+    { strcpy( caminho_arquivo, AFD_INPUT_DIR ); }
+  
+  else if ( tipo == 1) { 
+    strcat( nome_arquivo, ".dot" );  
+    strcpy( caminho_arquivo, AFD_OUTPUT_DIR ); 
+  
+  } else if ( tipo == 2 )
+    { strcpy(caminho_arquivo, PALAVRAS_DIR); }
+  
+  else if ( tipo == 3 ) {
+    nome_arquivo = remover_extensao_string(nome_arquivo);    
+    strcat( nome_arquivo, "-reconhecidas.txt" );  
+    strcpy( caminho_arquivo, PALAVRAS_DIR ); 
+  
   }
   
+  else {
+    
+    printf("\n\t :::: ERRO: get_dir_arquivo(); \
+      \n\t o tipo especificado e invalido ::::\n");
+
+    exit(EXIT_FAILURE);
+  }
   
   strcat(caminho_arquivo, nome_arquivo);
   return caminho_arquivo;

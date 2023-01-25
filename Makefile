@@ -14,40 +14,49 @@ TEST= ./tests
 # Flags
 FLAGS = -O3 -Wall
 
-all: dirs modulos afdtool
+all: clean dirs modulos afdtool
 	@ echo :: MAKE SUCCESS
 
 dirs:
-	mkdir -p $(OBJ)/utils
-	mkdir -p $(OBJ)/afd
-	mkdir -p $(OBJ)/operacoes
+	@ mkdir -p $(OBJ)/utils
+	@ mkdir -p $(OBJ)/afd
+	@ mkdir -p $(OBJ)/operacoes
 
 modulos:	\
+	src.afd/ \
 	$(OBJ)/afd/afd.o \
 	$(OBJ)/afd/leitura.o \
 	$(OBJ)/afd/exportar.o \
+	src.operacoes/ \
 	$(OBJ)/operacoes/operacoes.o \
+	$(OBJ)/operacoes/reconhecer_palavra.o \
+	$(OBJ)/operacoes/complemento.o \
+	$(OBJ)/operacoes/minimizar.o \
+	$(OBJ)/operacoes/produto.o \
+	src.utils/ \
 	$(OBJ)/utils/argumentos.o \
 
+src.%:
+	@ echo ::::MODULOS $@
 	
 # ./src
 $(OBJ)/%.o: $(SRC)/%.c $(INCLUDE)/%.h
-	@echo ::::MODULOS .src/:
+#	@echo ::::MODULOS .src/:
 	gcc $(FLAGS) -c $< -I $(INCLUDE) -o $@
 
 # ./src/utils
 $(OBJ)/utils/%.o: $(SRC)/utils/%.c $(INCLUDE)/utils/%.h
-	@echo ::::MODULOS .src/utils:
+#	@echo ::::MODULOS .src/utils:
 	gcc $(FLAGS) -c $< -I $(INCLUDE)/utils -o $@
 
 # ./src/afd
 $(OBJ)/afd/%.o: $(SRC)/afd/%.c $(INCLUDE)/afd/%.h
-	@echo ::::MODULOS .src/afd:
+#	@echo ::::MODULOS .src/afd:
 	gcc $(FLAGS) -c $< -I $(INCLUDE)/afd -o $@
 
 # ./src/operacoes
-$(OBJ)/operacoes/%.o: $(SRC)/operacoes/%.c $(INCLUDE)/operacoes/%.h
-	@echo ::::MODULOS .src/operacoes:
+$(OBJ)/operacoes/%.o: $(SRC)/operacoes/%.c $(INCLUDE)/operacoes/operacoes.h
+#	@echo ::::MODULOS .src/operacoes:
 	gcc $(FLAGS) -c $< -I $(INCLUDE)/operacoes -o $@
 
 

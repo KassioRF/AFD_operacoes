@@ -3,7 +3,7 @@
 #include "exportar.h"
 
 void Afd_exportar(AFD *Afd) {
-  printf("\n\t :::: Exportar AFD.dot ::::\n");
+  printf("\n\t :: Exportar AFD.dot ::\n");
   
   char *caminho;
   caminho = get_dir_arquivo(Afd->nome, 1);
@@ -24,7 +24,7 @@ void Afd_exportar(AFD *Afd) {
 
   fclose(arquivo);
 
-  printf("\t :::: Arquivo de saida:  %s ::::\n", caminho);
+  printf("\t\t - Arquivo de saida:  %s \n", caminho);
 
 
 }

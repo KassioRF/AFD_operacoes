@@ -3,15 +3,16 @@
 #include "leitura.h"
 
 AFD *Afd_ler(char *nome_arquivo) {  
+  printf("\n\t :: Ler AFD\n");
   
   FILE *arquivo;
   char *caminho;
   caminho = get_dir_arquivo(nome_arquivo, 0);
 
   if ( (arquivo = fopen(caminho, "r")) == NULL) {
-    printf("\t :::: ERRO: Arquivo nao encontrado: %s ::::\n", nome_arquivo);
-    printf("\t :::: Certifique-se de que o arquivo esta no diretorio: %s \
-      \n\n", INPUT_DIR );
+    printf("\n\t :::: ERRO: Arquivo nao encontrado: %s ::::\n", nome_arquivo);
+    printf("\n\t\t :: Certifique-se de que o arquivo esta no diretorio: %s \
+      \n\n", AFD_INPUT_DIR );
 
     exit(EXIT_FAILURE);
 
@@ -33,14 +34,10 @@ AFD *Afd_ler(char *nome_arquivo) {
   /* 5. ESTADO FINAL */
   ler_estados_final(Afd, linha, arquivo);
 
-  // teste
-  Afd_toString(Afd);
-
   fclose(arquivo);
   free(caminho);
 
   return Afd;
-  //Afd_destruct(Afd); // return afd
 
 }
 
@@ -80,8 +77,7 @@ void ler_simbolos(AFD *Afd, char *linha, FILE *arquivo) {
   for ( int i = 0; i < Afd->nSimbolos; i++ ) {
 
     char *simbolo = strtok(fgets(linha, MAXCHAR, arquivo), "\n");
-    Afd->Simbolos[i] = malloc((strlen(simbolo) + 1) * sizeof(char));
-
+    Afd->Simbolos[i] = malloc(sizeof(char));
     strcpy(Afd->Simbolos[i], simbolo);
   
   }
@@ -96,7 +92,7 @@ void ler_transicoes(AFD *Afd, char *linha, FILE *arquivo) {
   
   /* Aloca uma matriz de transicoes */
   /* Os enderecos sao acessados pelos ids dos estados e simbolos */
-  /* Ex: transicao[estadoid][simbolo] == estado_destino */
+  /* Ex: transicao[estadoid][simbolo] = estado_destino */
   Afd->Transicoes = malloc(Afd->nEstados * sizeof(int*));  
   
   /* inicializa transicoes[estado][simbolo] com destino -1 ( vazio )  */
@@ -104,10 +100,8 @@ void ler_transicoes(AFD *Afd, char *linha, FILE *arquivo) {
     
     Afd->Transicoes[estado] = malloc(sizeof(int));
     
-    for ( int simbolo = 0; simbolo < Afd-> nSimbolos; simbolo++ ) {
-      Afd->Transicoes[estado][simbolo] = -1;
-
-    }
+    for ( int simbolo = 0; simbolo < Afd-> nSimbolos; simbolo++ ) 
+      { Afd->Transicoes[estado][simbolo] = -1; }
   
   }
 
@@ -133,12 +127,11 @@ void ler_transicoes(AFD *Afd, char *linha, FILE *arquivo) {
     }
 
     /* atribui ao AFD a transicao para o estado_id  quando le o simbolo_id */
-    int estadoOrigem_ID = get_estadoID(Afd, transicao[0]);
-    int simbolo_ID = get_simboloID(Afd, transicao[1]);
-    int estadoDestino_ID = get_estadoID(Afd, transicao[2]);
+    char *estadoOrigem = transicao[0];
+    char simbolo = transicao[1][0];
+    char *estadoDestino = transicao[2];
 
-    Afd->Transicoes[estadoOrigem_ID][simbolo_ID] = estadoDestino_ID;
-
+    set_transicao(Afd, estadoOrigem, simbolo, estadoDestino);
 
   }
   
@@ -150,7 +143,7 @@ void ler_estado_inicial(AFD *Afd, char *linha, FILE *arquivo) {
 
   char *nome = strtok(fgets(linha, MAXCHAR, arquivo), "\n");
   
-  int estadoInicial_ID = get_estadoID(Afd, nome);
+  int estadoInicial_ID = get_estado_IDX(Afd, nome);
 
   Afd->Estados[estadoInicial_ID].Inicial = 1;
 
@@ -167,7 +160,7 @@ void ler_estados_final(AFD *Afd, char *linha, FILE *arquivo) {
     
     char *nome = strtok(fgets(linha, MAXCHAR, arquivo), "\n");
   
-    int estadoFinal_ID = get_estadoID(Afd, nome);
+    int estadoFinal_ID = get_estado_IDX(Afd, nome);
   
     Afd->Estados[estadoFinal_ID].Final = 1;
   
