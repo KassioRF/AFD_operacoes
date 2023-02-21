@@ -1,83 +1,98 @@
+
+/**
+* ------------------------------------------------------------------------------
+* Implementa a escrita de AFD no formato .dot aceito pelo Graphiz
+* ------------------------------------------------------------------------------
+*/
+
 #include "../headers.h"
 #include "../utils/argumentos.h"
 #include "exportar.h"
 
+/** Exporta um arquivo .dot  no formato graphiz a partir de um AFD de entrada. */
+
 void Afd_exportar(AFD *Afd) {
+  
   printf("\n\t :: Exportar AFD.dot ::\n");
   
   char *caminho;
   caminho = get_dir_arquivo(Afd->nome, 1);
-  
-  FILE * arquivo;
-  
-  if ( (arquivo = fopen(caminho, "w")) == NULL) {
+
+  FILE *arquivo;
+
+  if ( (arquivo = fopen(caminho, "w")) == NULL ) {
     printf("\t :::: ERRO: Arquivo ao criar arquivo de saida: %s ::::\n", caminho);
     exit(EXIT_FAILURE);
-
   }
 
-  escrever_estados(Afd, arquivo);
-  escrever_simbolos(Afd, arquivo);
-  escrever_transicoes(Afd, arquivo);
-  escrever_estado_inicial(Afd, arquivo);
-  escrever_estados_final(Afd, arquivo);
+
+  write_graphiz_format(Afd, arquivo);
+
 
   fclose(arquivo);
-
   printf("\t\t - Arquivo de saida:  %s \n", caminho);
 
-
 }
 
-void escrever_estados(AFD *Afd, FILE *arquivo) {
-  fprintf( arquivo, "%d", Afd->nEstados );
+/* Auxiliares: ---------------------------------------------------------------*/
+
+/** Escreve no arquivo os parâmetros do afd.dot. */
+
+void write_graphiz_format(AFD *Afd, FILE *arquivo) {
+  /* Abre o bloco da estrutura digraph: */
+  fprintf( arquivo, "digraph AFD { \n" );
   
-  for ( int i = 0; i < Afd->nEstados; i++ ) 
-    { fprintf( arquivo, "\n%s", Afd->Estados[i].nome ); }
+  /* parâmetro para a direção das arestas/vértices.*/
+  fprintf( arquivo, "\trankdir=LR; \n" );
 
-}
+  /* vértice genérico p/ marcar a seta do estado inicial*/
+  fprintf( arquivo, "\tnode [ shape = point ]; _qi;\n" );
+  /* define o shape para os demais estados ( oval ) */
+  fprintf( arquivo, "\tnode [ shape = oval ];\n" );
+  
+  /* define as transições no diagrama */
+  escrever_transicoes(Afd, arquivo);
 
-void escrever_simbolos(AFD *Afd, FILE *arquivo) {
-  fprintf( arquivo, "\n%d", Afd->nSimbolos );
-
-  for ( int i = 0; i < Afd->nSimbolos; i++ ) 
-    { fprintf( arquivo, "\n%s", Afd->Simbolos[i]); }
+  /* define os estaods finais */
+  escrever_estados_final(Afd, arquivo);
+  
+  /* Fecha o bloco da estrutura digraph: */
+  fprintf( arquivo, "}" );
 
 }
 
 void escrever_transicoes(AFD *Afd, FILE *arquivo) {
-  fprintf( arquivo, "\n%d", Afd->nTransicoes );
-
+  
+  fprintf( arquivo, "\t// transicoes \n" );  
+  
+  /* especifica seta para o estdo inicial */
+  fprintf( arquivo, "\t_qi -> %s;\n", get_estado_inicial(Afd).nome );
+    
+  /* Transições: */
   for ( int estado = 0; estado < Afd->nEstados; estado++ ) {
     for ( int simbolo = 0; simbolo < Afd->nSimbolos; simbolo++ ) {
       
-      /* @DUVIDA: Escrever estados com destino vazio ? */
-      /* Verificar um arquivo no formato do graphiz que possui estado vazio */
       if ( Afd->Transicoes[estado][simbolo] != -1 ) { 
-        fprintf( arquivo, "\n%s %s %s", \
+
+        fprintf( arquivo, "\t%s -> %s [ label = \"%s\" ];\n", \
           Afd->Estados[estado].nome, \
-          Afd->Simbolos[simbolo], \
-          Afd->Estados[Afd->Transicoes[estado][simbolo]].nome );
-        
-      }
-  
-    }  
+          Afd->Estados[Afd->Transicoes[estado][simbolo]].nome, \
+          Afd->Simbolos[simbolo] );
+      }  
+    }    
   }
 
 }
 
-void escrever_estado_inicial(AFD *Afd, FILE *arquivo) {
-  fprintf( arquivo, "\n%s", get_estado_inicial(Afd).nome );
-
-}
 
 void escrever_estados_final(AFD *Afd, FILE *arquivo) {
-  fprintf( arquivo, "\n%d", Afd->nEstadosFinais );
+  fprintf( arquivo, "\t// Estados Finais \n" );
   
   Estado *EstadosFinais = get_estados_final(Afd);
   
   for (int i = 0; i < Afd->nEstadosFinais; i++ ) {
-    fprintf( arquivo, "\n%s", EstadosFinais[i].nome );
+    fprintf( arquivo, "\t%s [ shape = \"doublecircle\"]; \n", \
+      EstadosFinais[i].nome );
   }
 
   free(EstadosFinais);

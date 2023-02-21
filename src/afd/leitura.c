@@ -1,13 +1,29 @@
+
+/**
+* ------------------------------------------------------------------------------
+* Implementa a leitura de AFD a partir de um arquivo "".txt"
+* ------------------------------------------------------------------------------
+*/
+
 #include "../headers.h"
 #include "../utils/argumentos.h"
 #include "leitura.h"
 
+
+/**
+* Lê um arquivo .txt
+* 
+* retorna: struct AFD
+*
+*/
 AFD *Afd_ler(char *nome_arquivo) {  
+  
   printf("\n\t :: Ler AFD\n");
   
   FILE *arquivo;
   char *caminho;
   caminho = get_dir_arquivo(nome_arquivo, 0);
+  
 
   if ( (arquivo = fopen(caminho, "r")) == NULL) {
     printf("\n\t :::: ERRO: Arquivo nao encontrado: %s ::::\n", nome_arquivo);
@@ -23,16 +39,25 @@ AFD *Afd_ler(char *nome_arquivo) {
 
 
   char linha[MAXCHAR];  
+  
+  
+  
   /* 1. ESTADOS */
   ler_estados(Afd, linha, arquivo);
+
   /* 2. ALFABETO DE ENTRADA */
   ler_simbolos(Afd, linha, arquivo);
+
   /* 3. TRANSICOES */
   ler_transicoes(Afd, linha, arquivo);
+
   /* 4. ESTADO INICIAL */
   ler_estado_inicial(Afd, linha, arquivo);
+  
   /* 5. ESTADO FINAL */
   ler_estados_final(Afd, linha, arquivo);
+
+  
 
   fclose(arquivo);
   free(caminho);
@@ -46,6 +71,7 @@ AFD *Afd_ler(char *nome_arquivo) {
 void ler_estados(AFD *Afd, char *linha, FILE *arquivo) {
   
   Afd->nEstados = atoi(fgets(linha, MAXCHAR, arquivo));  
+
 
   Afd->Estados = malloc(Afd->nEstados * sizeof(Estado));
 
@@ -87,6 +113,7 @@ void ler_simbolos(AFD *Afd, char *linha, FILE *arquivo) {
 /* 3. TRANSICOES ------------------------------------------------------- */
 
 void ler_transicoes(AFD *Afd, char *linha, FILE *arquivo) {
+  
 
   Afd->nTransicoes = atoi(fgets(linha, MAXCHAR, arquivo));
   
@@ -96,13 +123,13 @@ void ler_transicoes(AFD *Afd, char *linha, FILE *arquivo) {
   Afd->Transicoes = malloc(Afd->nEstados * sizeof(int*));  
   
   /* inicializa transicoes[estado][simbolo] com destino -1 ( vazio )  */
-  for( int estado = 0; estado < Afd->nSimbolos; estado++ ) {
+  for( int estado = 0; estado < Afd->nEstados; estado++ ) {
     
     Afd->Transicoes[estado] = malloc(sizeof(int));
     
     for ( int simbolo = 0; simbolo < Afd-> nSimbolos; simbolo++ ) 
-      { Afd->Transicoes[estado][simbolo] = -1; }
-  
+      {  Afd->Transicoes[estado][simbolo] = -1; }
+
   }
 
 
@@ -128,11 +155,11 @@ void ler_transicoes(AFD *Afd, char *linha, FILE *arquivo) {
 
     /* atribui ao AFD a transicao para o estado_id  quando le o simbolo_id */
     char *estadoOrigem = transicao[0];
-    char simbolo = transicao[1][0];
+    char *simbolo = transicao[1];
     char *estadoDestino = transicao[2];
 
-    set_transicao(Afd, estadoOrigem, simbolo, estadoDestino);
-
+    set_transicao(Afd, estadoOrigem, simbolo, estadoDestino);    
+    
   }
   
 }

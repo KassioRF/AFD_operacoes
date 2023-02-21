@@ -1,8 +1,12 @@
+
+/**
+* ------------------------------------------------------------------------------
+* Funcionalidade 4: Minimização de AFDs
+* ------------------------------------------------------------------------------
+*/
+
 #include "operacoes.h"
 
-/** @TODO:
-    Minimizacao AFD
-*/
 void minimizar() {
-  printf("\n\t :: produto();\n");
+  printf("\n\t :: minimizar AFD();\n");
 }

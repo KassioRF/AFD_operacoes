@@ -21,6 +21,7 @@
 
 char *get_dir_arquivo(char *nome_arquivo, int tipo) {
   char *caminho_arquivo = (char*)malloc(MAXCHAR*sizeof(char));
+  
   if (tipo == 0) 
     { strcpy( caminho_arquivo, AFD_INPUT_DIR ); }
   
@@ -33,7 +34,7 @@ char *get_dir_arquivo(char *nome_arquivo, int tipo) {
   
   else if ( tipo == 3 ) {
     nome_arquivo = remover_extensao_string(nome_arquivo);    
-    strcat( nome_arquivo, "-reconhecidas.txt" );  
+    strcat( nome_arquivo, "_result.txt" );  
     strcpy( caminho_arquivo, PALAVRAS_DIR ); 
   
   }

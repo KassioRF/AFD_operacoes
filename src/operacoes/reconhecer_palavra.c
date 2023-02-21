@@ -1,3 +1,11 @@
+
+/**
+* ------------------------------------------------------------------------------
+* Funcionalidade 5: Reconhecimento de palavra
+* ------------------------------------------------------------------------------
+*/
+
+
 #include "../utils/argumentos.h"
 #include "operacoes.h"
 
@@ -8,6 +16,7 @@ void reconhecer_palavras(AFD *Afd, char *nome_arq_entrada) {
   char *caminho;
 
   caminho = get_dir_arquivo(nome_arq_entrada, 2);
+  
   if ( (arquivo = fopen(caminho, "r")) == NULL) {
     printf("\n\t :::: ERRO: Arquivo nao encontrado: %s ::::\n", nome_arq_entrada);
     printf("\n\t :::: Certifique-se de que o arquivo esta no diretorio: %s \
@@ -18,8 +27,11 @@ void reconhecer_palavras(AFD *Afd, char *nome_arq_entrada) {
   }
 
   char *caminho_saida = get_dir_arquivo(nome_arq_entrada,3);
+  
+  printf("\n%s\n", caminho_saida);
   FILE *arq_resultado = fopen(caminho_saida, "w");
 
+  
   char linha[1024];
 
   // Para cada linha reconhece uma palavra
@@ -32,10 +44,13 @@ void reconhecer_palavras(AFD *Afd, char *nome_arq_entrada) {
 
   }
 
+  fprintf(arq_resultado, "AFD: %s", Afd->nome);
+
   printf("\n\n\t\t - Arquivo de saida: %s \n", caminho_saida);
 
   fclose(arq_resultado);
   fclose(arquivo);
+  
 
 }
 
@@ -56,14 +71,24 @@ void reconhecer_palavras(AFD *Afd, char *nome_arq_entrada) {
  */
 
 int reconhece_palavra(AFD *Afd, char *palavra) {
-
+  
   Estado EstadoAtual = get_estado_inicial(Afd);  
   
   char *simbolo = palavra;
-  
+
   // Caminha pelas transicoes a cada simbolo lido
-  while ( *simbolo ) 
-    { EstadoAtual = get_transicao(Afd, &EstadoAtual, *simbolo++); }
+  while ( *simbolo ) {
+    
+    /* trata o caso de palavra/simbolo vazio */
+    if  (simbolo[0] == ' ')  { 
+      simbolo++;
+      continue;     
+    }
+    
+    EstadoAtual = get_transicao(Afd, &EstadoAtual, simbolo++); 
+  }
+
+  printf("\n");
 
 
   printf("\n\t\t - %s (%d)", palavra, EstadoAtual.Final);

@@ -1,8 +1,11 @@
 #include "operacoes.h"
 
-/** @TODO:
-    impementar uniao e intercesao
+/**
+* ------------------------------------------------------------------------------
+* Funcionalidade 3: Interseção e união de AFDS
+* ------------------------------------------------------------------------------
 */
+
 void produto() {
   printf("\n\t :: produto();\n");
 }

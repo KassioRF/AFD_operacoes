@@ -30,14 +30,14 @@ typedef struct AFD_struct {
 /** Metodos: */
 AFD *inicializar_AFD();
 int get_estado_IDX(AFD *Afd, char *estado_nome);
-int get_simboloIDX(AFD *Afd, char simbolo_nome);
+int get_simboloIDX(AFD *Afd, char *simbolo_nome);
 Estado get_estado_inicial(AFD *Afd);
 Estado *get_estados_final(AFD *Afd);
 
-Estado get_transicao( AFD *Afd, Estado *estado, char simbolo );
+Estado get_transicao( AFD *Afd, Estado *estado, char *simbolo );
 
 void set_transicao(AFD *Afd, char *estadoOrigem, \
-                    char simbolo, char *estadoDestino);
+                    char *simbolo, char *estadoDestino);
 
 Estado transicao_EstadoERRO();
 void Afd_destruct(AFD *Afd);

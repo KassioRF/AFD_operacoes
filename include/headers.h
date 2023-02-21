@@ -14,6 +14,6 @@
 #define AFD_INPUT_DIR "./afds_entrada/"
 #define AFD_OUTPUT_DIR "./afds_saida/"
 #define PALAVRAS_DIR "./palavras/"
-#define MAXCHAR 512
+#define MAXCHAR 1024
 
 #endif
