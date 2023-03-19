@@ -1,24 +1,39 @@
-
 /**
 * ------------------------------------------------------------------------------
 * Funcionalidade 5: Reconhecimento de palavra
 * ------------------------------------------------------------------------------
 */
 
-
 #include "../utils/argumentos.h"
-#include "operacoes.h"
+#include "reconhecer_palavra.h"
 
-void reconhecer_palavras(AFD *Afd, char *nome_arq_entrada) {
-  printf("\n\t :: Reconhecer Palavra %s\n", nome_arq_entrada);
+
+/**
+  Recebe um arquivo contendo uma ou mais palavras
+  Retorna um arquivo indicando se resultado gerado pelo AFD
+
+
+  Para cada palavra (linha do arquivo)
+  Faz a chamada do método: reconhece_palavra();
+
+  Como especificado na proposta do TP;
+    No arquivo de saida, p/ cada cada palavra (linha)
+    Aponta o resultado
+     0 se a palavra nao foi aceita
+     1 se a palavra foi aceita
+
+
+*/
+void reconhecer_palavras(AFD *Afd, char *inputFile, char *outputFile) {
+  printf("\n\t :: Reconhecer Palavra %s\n", inputFile);
 
   FILE *arquivo;
   char *caminho;
 
-  caminho = get_dir_arquivo(nome_arq_entrada, 2);
+  caminho = get_dir_arquivo(inputFile, 2);
   
   if ( (arquivo = fopen(caminho, "r")) == NULL) {
-    printf("\n\t :::: ERRO: Arquivo nao encontrado: %s ::::\n", nome_arq_entrada);
+    printf("\n\t :::: ERRO: Arquivo nao encontrado: %s ::::\n", inputFile);
     printf("\n\t :::: Certifique-se de que o arquivo esta no diretorio: %s \
       \n\n", PALAVRAS_DIR );
 
@@ -26,12 +41,10 @@ void reconhecer_palavras(AFD *Afd, char *nome_arq_entrada) {
 
   }
 
-  char *caminho_saida = get_dir_arquivo(nome_arq_entrada,3);
+  char *caminho_saida = get_dir_arquivo(outputFile,3);
   
-  printf("\n%s\n", caminho_saida);
   FILE *arq_resultado = fopen(caminho_saida, "w");
 
-  
   char linha[1024];
 
   // Para cada linha reconhece uma palavra
@@ -67,7 +80,6 @@ void reconhecer_palavras(AFD *Afd, char *nome_arq_entrada) {
     
   Neste caso temos:
   O(|palavra|*(|E|+|S|))
-
  */
 
 int reconhece_palavra(AFD *Afd, char *palavra) {

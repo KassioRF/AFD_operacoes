@@ -11,4 +11,4 @@
 1
 1
 1
-AFD: m0.dot
+AFD: x

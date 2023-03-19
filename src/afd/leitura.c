@@ -1,12 +1,10 @@
 
 /**
-* ------------------------------------------------------------------------------
-* Implementa a leitura de AFD a partir de um arquivo "".txt"
-* ------------------------------------------------------------------------------
+*
+* Implementa a leitura de AFD a partir de um arquivo ".txt"
+* 
 */
 
-#include "../headers.h"
-#include "../utils/argumentos.h"
 #include "leitura.h"
 
 

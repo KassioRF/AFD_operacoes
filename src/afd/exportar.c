@@ -5,18 +5,17 @@
 * ------------------------------------------------------------------------------
 */
 
-#include "../headers.h"
-#include "../utils/argumentos.h"
+
 #include "exportar.h"
 
 /** Exporta um arquivo .dot  no formato graphiz a partir de um AFD de entrada. */
 
-void Afd_exportar(AFD *Afd) {
+void Afd_exportar(AFD *Afd, char* nome_arquivo) {
   
   printf("\n\t :: Exportar AFD.dot ::\n");
   
   char *caminho;
-  caminho = get_dir_arquivo(Afd->nome, 1);
+  caminho = get_dir_arquivo(nome_arquivo, 1);
 
   FILE *arquivo;
 
@@ -51,17 +50,17 @@ void write_graphiz_format(AFD *Afd, FILE *arquivo) {
   fprintf( arquivo, "\tnode [ shape = oval ];\n" );
   
   /* define as transições no diagrama */
-  escrever_transicoes(Afd, arquivo);
+  exportar_transicoes(Afd, arquivo);
 
   /* define os estaods finais */
-  escrever_estados_final(Afd, arquivo);
+  exportar_estados_final(Afd, arquivo);
   
   /* Fecha o bloco da estrutura digraph: */
   fprintf( arquivo, "}" );
 
 }
 
-void escrever_transicoes(AFD *Afd, FILE *arquivo) {
+void exportar_transicoes(AFD *Afd, FILE *arquivo) {
   
   fprintf( arquivo, "\t// transicoes \n" );  
   
@@ -85,7 +84,7 @@ void escrever_transicoes(AFD *Afd, FILE *arquivo) {
 }
 
 
-void escrever_estados_final(AFD *Afd, FILE *arquivo) {
+void exportar_estados_final(AFD *Afd, FILE *arquivo) {
   fprintf( arquivo, "\t// Estados Finais \n" );
   
   Estado *EstadosFinais = get_estados_final(Afd);

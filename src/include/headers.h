@@ -11,9 +11,13 @@
 #include <limits.h>
 
 
-#define AFD_INPUT_DIR "./afds_entrada/"
-#define AFD_OUTPUT_DIR "./afds_saida/"
-#define PALAVRAS_DIR "./palavras/"
+// #define AFD_INPUT_DIR "./afds_entrada/"
+// #define AFD_OUTPUT_DIR "./afds_saida/"
+// #define PALAVRAS_DIR "./palavras/"
+#define AFD_INPUT_DIR "./"
+#define AFD_OUTPUT_DIR "./"
+#define PALAVRAS_DIR "./"
+
 #define MAXCHAR 1024
 
 #endif

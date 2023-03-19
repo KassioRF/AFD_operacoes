@@ -4,7 +4,7 @@ APPNAME = afdtool
 APP = ./app
 BIN = ./bin
 # todos .h dentro de ./includes
-INCLUDE = ./include
+INCLUDE = ./src/include
 LIB = ./lib
 OBJ = ./obj
 SRC = ./src
@@ -23,18 +23,21 @@ dirs:
 	@ mkdir -p $(OBJ)/operacoes
 
 modulos:	\
+	src.utils/ \
+	$(OBJ)/utils/str_utils.o \
+	$(OBJ)/utils/particoes.o \
 	src.afd/ \
 	$(OBJ)/afd/afd.o \
 	$(OBJ)/afd/leitura.o \
 	$(OBJ)/afd/exportar.o \
+	$(OBJ)/afd/escrever.o \
+	$(OBJ)/operacoes.o \
 	src.operacoes/ \
-	$(OBJ)/operacoes/operacoes.o \
+	$(OBJ)/operacoes/minimizar.o \
 	$(OBJ)/operacoes/reconhecer_palavra.o \
 	$(OBJ)/operacoes/complemento.o \
-	$(OBJ)/operacoes/minimizar.o \
-	$(OBJ)/operacoes/produto.o \
-	src.utils/ \
-	$(OBJ)/utils/argumentos.o \
+
+
 
 src.%:
 	@ echo ::::MODULOS $@
@@ -55,7 +58,7 @@ $(OBJ)/afd/%.o: $(SRC)/afd/%.c $(INCLUDE)/afd/%.h
 	gcc $(FLAGS) -c $< -I $(INCLUDE)/afd -o $@
 
 # ./src/operacoes
-$(OBJ)/operacoes/%.o: $(SRC)/operacoes/%.c $(INCLUDE)/operacoes/operacoes.h
+$(OBJ)/operacoes/%.o: $(SRC)/operacoes/%.c $(INCLUDE)/operacoes/%.h
 #	@echo ::::MODULOS .src/operacoes:
 	gcc $(FLAGS) -c $< -I $(INCLUDE)/operacoes -o $@
 
@@ -63,7 +66,7 @@ $(OBJ)/operacoes/%.o: $(SRC)/operacoes/%.c $(INCLUDE)/operacoes/operacoes.h
 # compilando o app 
 afdtool:
 	@echo ::::APP:
-	gcc $(FLAGS) $(APP)/$(APPNAME).c $(OBJ)/*/*.o \
+	gcc $(FLAGS) $(APP)/$(APPNAME).c $(OBJ)/*/*.o $(OBJ)/*.o \
 	-I $(INCLUDE) \
 	-o $(APPNAME)
 	
@@ -77,7 +80,19 @@ test_%:
 # Rodar o app: 
 # $ make run
 run:
-	./$(APPNAME)
+	./$(APPNAME) --dot afd.txt --output afd.dot
+
+reconhecer:
+	./$(APPNAME) --reconhecer afd.txt palavras.txt --output palavras-reconhecidas.txt
+
+exportar:
+	./$(APPNAME) --dot afd.txt --output afd.dot
+
+complemento:
+	./$(APPNAME) --complemento afd.txt --output afd-complemento.txt
+
+minimizar:
+	./$(APPNAME) --minimizacao afd.txt --output afd-minimizacao.txt
 
 # Remover arquivos de compilação:
 # $ make clean

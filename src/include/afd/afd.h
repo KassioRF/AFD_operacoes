@@ -1,6 +1,7 @@
 #ifndef AFD_H
 #define AFD_H
 
+#include "../headers.h"
 /** Estrutura para o AFD */
 typedef struct Estado_struct {
   char *nome;
