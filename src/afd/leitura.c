@@ -48,7 +48,7 @@ AFD *Afd_ler(char *nome_arquivo) {
   /* 2. ALFABETO DE ENTRADA */
   ler_simbolos(Afd, linha, arquivo);
 
-  /* 3. TRANSICOES */
+  /* 3. TRANSICOES */  
   ler_transicoes(Afd, linha, arquivo);
 
   /* 4. ESTADO INICIAL */
@@ -72,10 +72,9 @@ void ler_estados(AFD *Afd, char *linha, FILE *arquivo) {
   
   Afd->nEstados = atoi(fgets(linha, MAXCHAR, arquivo));  
 
-
   Afd->Estados = malloc(Afd->nEstados * sizeof(Estado));
-
-  for (int i = 0; i < Afd->nEstados; i++) {
+  // Estados id;
+  for ( int i = 0; i < Afd->nEstados; i++ ) {
 
     Estado *estado = malloc(sizeof(Estado));
 
@@ -107,7 +106,8 @@ void ler_simbolos(AFD *Afd, char *linha, FILE *arquivo) {
     strcpy(Afd->Simbolos[i], simbolo);
   
   }
-
+   // Afd->Simbolos =  ["par","impar"]
+   //                     0      1
 }
 
 /* 3. TRANSICOES ------------------------------------------------------- */
@@ -122,6 +122,7 @@ void ler_transicoes(AFD *Afd, char *linha, FILE *arquivo) {
   /* Ex: transicao[estadoid][simbolo] = estado_destino */
   Afd->Transicoes = malloc(Afd->nEstados * sizeof(int*));  
   
+
   /* inicializa transicoes[estado][simbolo] com destino -1 ( vazio )  */
   for( int estado = 0; estado < Afd->nEstados; estado++ ) {
     
@@ -157,8 +158,9 @@ void ler_transicoes(AFD *Afd, char *linha, FILE *arquivo) {
     char *estadoOrigem = transicao[0];
     char *simbolo = transicao[1];
     char *estadoDestino = transicao[2];
-
+    // transição:  ['par','0','impar']
     set_transicao(Afd, estadoOrigem, simbolo, estadoDestino);    
+    
     
   }
   

@@ -16,7 +16,7 @@ void uniao();
 void intersecao();
 
 /* ===== FUNCIONALIDADE 4: Minimizacao =====*/
-void minimizar();
+AFD* minimizar_AFD(AFD *Afd);
 
 /* ===== FUNCIONALIDADE 5: Reconhecer Palavra =====*/
 void reconhecer_palavras(AFD *Afd, char *nome_arq_entrada);

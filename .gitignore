@@ -1,3 +1,5 @@
 *.o
 *.dot
 afdtool
+
+src/operacoes/bkps/*

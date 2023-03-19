@@ -21,36 +21,70 @@
 
 char *get_dir_arquivo(char *nome_arquivo, int tipo) {
   char *caminho_arquivo = (char*)malloc(MAXCHAR*sizeof(char));
+  char *copia_nome_arquivo = strdup(nome_arquivo); 
   
   if (tipo == 0) 
-    { strcpy( caminho_arquivo, AFD_INPUT_DIR ); }
-  
-  else if ( tipo == 1) { 
-    strcat( nome_arquivo, ".dot" );  
-    strcpy( caminho_arquivo, AFD_OUTPUT_DIR ); 
-  
-  } else if ( tipo == 2 )
+    { strcpy(caminho_arquivo, AFD_INPUT_DIR); }
+
+  else if (tipo == 1) { 
+    strcat(copia_nome_arquivo, ".dot");  
+    strcpy(caminho_arquivo, AFD_OUTPUT_DIR);     
+  } 
+
+  else if (tipo == 2)
     { strcpy(caminho_arquivo, PALAVRAS_DIR); }
-  
-  else if ( tipo == 3 ) {
-    nome_arquivo = remover_extensao_string(nome_arquivo);    
-    strcat( nome_arquivo, "_result.txt" );  
-    strcpy( caminho_arquivo, PALAVRAS_DIR ); 
-  
+    
+  else if (tipo == 3) {
+    copia_nome_arquivo = remover_extensao_string(copia_nome_arquivo);    
+    strcat(copia_nome_arquivo, "_result.txt");
+    strcpy(caminho_arquivo, PALAVRAS_DIR);
   }
   
   else {
-    
     printf("\n\t :::: ERRO: get_dir_arquivo(); \
-      \n\t o tipo especificado e invalido ::::\n");
-
+    \n\t o tipo especificado é inválido ::::\n");
     exit(EXIT_FAILURE);
   }
-  
-  strcat(caminho_arquivo, nome_arquivo);
-  return caminho_arquivo;
+    
+  strcat(caminho_arquivo, copia_nome_arquivo);
 
+  free(copia_nome_arquivo); 
+  
+  return caminho_arquivo;
 }
+
+// char *get_dir_arquivo(char *nome_arquivo, int tipo) {
+//   char *caminho_arquivo = (char*)malloc(MAXCHAR*sizeof(char));
+  
+//   if (tipo == 0) 
+//     { strcpy( caminho_arquivo, AFD_INPUT_DIR ); }
+  
+//   else if ( tipo == 1) { 
+//     strcat( nome_arquivo, ".dot" );  
+//     strcpy( caminho_arquivo, AFD_OUTPUT_DIR ); 
+  
+//   } else if ( tipo == 2 )
+//     { strcpy(caminho_arquivo, PALAVRAS_DIR); }
+  
+//   else if ( tipo == 3 ) {
+//     nome_arquivo = remover_extensao_string(nome_arquivo);    
+//     strcat( nome_arquivo, "_result.txt" );  
+//     strcpy( caminho_arquivo, PALAVRAS_DIR ); 
+  
+//   }
+  
+//   else {
+    
+//     printf("\n\t :::: ERRO: get_dir_arquivo(); \
+//       \n\t o tipo especificado e invalido ::::\n");
+
+//     exit(EXIT_FAILURE);
+//   }
+  
+//   strcat(caminho_arquivo, nome_arquivo);
+//   return caminho_arquivo;
+
+// }
 
 /**
 * 

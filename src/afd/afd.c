@@ -11,7 +11,7 @@
 int get_estado_IDX(AFD *Afd, char *estado_nome) {
 
   for ( int i = 0; i < Afd->nEstados; i++ ) {
-
+      
     if (strcmp(Afd->Estados[i].nome, estado_nome) == 0) { return i; }
 
   }
@@ -51,7 +51,7 @@ Estado get_transicao( AFD *Afd, Estado *estado, char *simbolo ) {
   if ( estado_destino_idx == - 1 ) {
     return transicao_EstadoERRO();
   }
-  
+  // 
   return Afd->Estados[estado_destino_idx];
   
 }
@@ -59,12 +59,13 @@ Estado get_transicao( AFD *Afd, Estado *estado, char *simbolo ) {
 
 void set_transicao(AFD *Afd, char *estadoOrigem, \
                     char *simbolo, char *estadoDestino) {
-  
+
   int estadoOrigem_IDX = get_estado_IDX(Afd, estadoOrigem);
   int estadoDestino_IDX = get_estado_IDX(Afd, estadoDestino);
   int simbolo_IDX = get_simboloIDX(Afd, simbolo);
 
   Afd->Transicoes[estadoOrigem_IDX][simbolo_IDX] = estadoDestino_IDX;
+
 }
 
 /* 4. ESTADO INICIAL ------------------------------------------------------- */
@@ -112,6 +113,11 @@ Estado *get_estados_final(AFD *Afd) {
 AFD *inicializar_AFD() {
   
   AFD *Afd = malloc(sizeof(AFD));  
+  Afd->nEstados = 0;
+  Afd->nSimbolos = 0;
+  Afd->nTransicoes = 0;
+  Afd->nEstadosFinais = 0;
+
 
   return Afd;
   

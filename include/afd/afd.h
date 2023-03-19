@@ -9,9 +9,8 @@ typedef struct Estado_struct {
   int Final;
   // Marca como o estado de erro do AFD
   int Erro; 
-
+  
 } Estado;
-
 
 
 typedef struct AFD_struct {
