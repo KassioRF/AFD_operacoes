@@ -1,80 +1,89 @@
 # AFD_operacoes
+
 FTC - Trabalho Prático 2023
 
+## Compilação:
+1) Gera os binários com Makefile
+  $ make
 
-## Sobre a estrutura:
+2) Executa a aplicação com os argumentos especificos de cada operação:
+  ```
+  $ ./afdtool --dot afd.txt --output afd.dot
+  $ ./afdtool --complemento afd1.txt --output afd1-complemento.txt
+  $ ./afdtool --minimizacao afd1.txt --output afd1-minimizacao.txt
+  $ ./afdtool --reconhecer afd.txt palavras.txt --output palavras-reconhecidas.txt
+  ```
 
-  #### OBS: São definições para começar, fiquem à vontade para fazer ajustes.
+## Sobre a implementação:
 
-  Função `main()`: [app/afdtool.c](./app/afdtool.c)
+Com base na proposta do trabalho foram implementadas as seguintes funcionalidades:
 
-  Modulos: [src/](./src/)
-
-   - [src/afd/](./src/afd): Estrutura de dados para AFD e metodos de leitura e escrita.
-
-   - [src/operacoes/](./src/operacoes): Operações sobre AFD's: União, Interseção, Complemento e Minimização.
-    
-   - [src/utils/](./src/utils): Funções/Bilbiotecas auxiliares.
-    
-
-
-  Headers: [include/](./include)
-    
-   - Segue a mesma estrutura de pastas dos modulos, mas não quer dizer que um .c tenha que ter obrigatóriamente um .h.
-    
-   - Ex: Mesmo que tenha um modulo.c para cada operação acredito que eles possam compartilhar o mesmo .h.
-
-
-  ### Arquivos de entrada e saída:
-
-   A princípio optei por diretórios específicos para leitura e escrita dos arquivos externos.
-
-   - Afds de entrada devem estar em [afds_entrada/](./afds_entrada/)
-   - Afds de saída  vão para [afds_saida/](./afds_saida/)
-
-## Compilar com Makefile
-
-### Linux:
+  1) Exportar como dot;
+  2) Gerar complemento de um AFD;
+  3) Minimizar um AFD;
+  4) Reconhecer um conjunto de palavras para um AFD de entrada;
   
-  1. Gerar binários:
+ ### Estrutura do projeto:
+ 
+  - Makefile fica no diretório raiz do projeto;
+  - app/: reservada para o script afdtool.c que contém a main() do programa;
+  - obj/: agrupa os binários gerados pelo Makefile;
+  
+  - src/: módulos implementados;
     
-    $ make
-
-  2. Executar:
+    -src/include/: arquivos .h
     
-    $ make run
+    - src/afd/: módulos específicos para manipulação de afds, assim como leitura e escrita;
+    - src/operacoes/: módulos específicos para cada operação implementada;
+    - src/operacoes.c: serve como interface para a chamada das operações;
+    - src/utils/: implementa métdos auxilares, como manipulação de strings e vetores dinâmicos;
     
-    ou
     
-    $ ./afdtool
-
-  3. Remover binários: ( As vezes resolve bug tbm xD )
-
-    $ make clean
-
-### Windows:
-
-  Em breve descobriremos kkkk
-
-  links uteis que ainda não tive tempo de testar:
-
-   - Instalar gcc no windows: https://linuxhint.com/install-c-compiler-windows/
-   - Como compilar C no windows com makefile: https://linuxhint.com/run-makefile-windows/
-
-
-## Implementações:
-
-  #### FUNCIONALIDADE 1: visualização (ok!)
-
-  - [Ler AFD](./src/afd/leitura.c)
-  - [Exportar .dot](./src/afd/exportar.c)
-
-
-  #### FUNCIONALIDADE 2: complemento
-
-  #### FUNCIONALIDADE 3: interseção e união
-
-  #### FUNCIONALIDADE 4: minimização
-
-  #### FUNCIONALIDADE 5: reconhecimento de palavra (ok!)
-  - [Reconhecer Palavras](./src/operacoes/reconhecer_palavra.c)
+  
+  
+ 
+```
+./
+├── afd-operacoes.pdf
+├── afd.txt
+├── app
+│   └── afdtool.c
+├── exemplos_compilacao.txt
+├── Makefile
+├── obj
+├── palavras.txt
+├── README.md
+├── resultados
+│   ├── ...
+└── src
+    ├── include
+    │   ├── afd
+    │   │   ├── afd.h
+    │   │   ├── escrever.h
+    │   │   ├── exportar.h
+    │   │   └── leitura.h
+    │   ├── headers.h
+    │   ├── operacoes
+    │   │   ├── complemento.h
+    │   │   ├── minimizar.h
+    │   │   └── reconhecer_palavra.h
+    │   ├── operacoes.h
+    │   └── utils
+    │       ├── particoes.h
+    │       └── str_utils.h
+    ├── afd
+    │   ├── afd.c
+    │   ├── escrever.c
+    │   ├── exportar.c
+    │   └── leitura.c    
+    ├── operacoes
+    │   ├── complemento.c
+    │   ├── minimizar.c
+    │   └── reconhecer_palavra.c
+    ├── operacoes.c
+    └── utils
+        ├── particoes.c
+        └── str_utils.c
+```
+ 
+  

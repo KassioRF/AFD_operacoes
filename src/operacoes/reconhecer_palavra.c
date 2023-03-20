@@ -4,7 +4,6 @@
 * ------------------------------------------------------------------------------
 */
 
-#include "../utils/argumentos.h"
 #include "reconhecer_palavra.h"
 
 

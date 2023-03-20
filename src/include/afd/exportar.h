@@ -2,7 +2,6 @@
 #define EXPORTAR_H
 
 #include "../headers.h"
-#include "../utils/argumentos.h"
 #include "../utils/str_utils.h"
 #include "afd.h"
 

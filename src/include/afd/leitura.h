@@ -4,7 +4,6 @@
 
 #include "../headers.h"
 #include "afd.h"
-#include "../utils/argumentos.h"
 #include "../utils/str_utils.h"
 
 AFD *Afd_ler(char *nome_arquivo);
