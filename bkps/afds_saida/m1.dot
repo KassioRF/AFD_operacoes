@@ -1,0 +1,15 @@
+digraph AFD { 
+	rankdir=LR; 
+	node [ shape = point ]; _qi;
+	node [ shape = oval ];
+	// transicoes 
+	_qi -> p;
+	p -> c0 [ label = "0" ];
+	p -> c1 [ label = "1" ];
+	c0 -> c0 [ label = "0" ];
+	c0 -> c0 [ label = "1" ];
+	c1 -> c1 [ label = "0" ];
+	c1 -> c1 [ label = "1" ];
+	// Estados Finais 
+	c0 [ shape = "doublecircle"]; 
+}

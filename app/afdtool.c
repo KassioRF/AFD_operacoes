@@ -9,7 +9,7 @@
     Faz a chamada da funcionalidade de acordo com o argumento passado 
     como parâmetro de compilação
 
-  operacoes.c é o script que implementa a chamada paraa cada funcionalidade
+  src/operacoes.c é o script que implementa a chamada para cada funcionalidade
   implementada.
 
 

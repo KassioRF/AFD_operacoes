@@ -8,8 +8,7 @@ INCLUDE = ./src/include
 LIB = ./lib
 OBJ = ./obj
 SRC = ./src
-# Tests dir
-TEST= ./tests
+
 
 # Flags
 FLAGS = -O3 -Wall
@@ -71,30 +70,23 @@ afdtool:
 	-o $(APPNAME)
 	
 
-test_%:	
-	echo $@
-	gcc $(FLAGS) $(TEST)/$@.c $(OBJ)/*/*.o -I $(INCLUDE) -o $(TEST)/bin/$@	
-	$(TEST)/bin/$@	
-	@ rm -rf $(TEST)/bin/*
-
 # Rodar o app: 
-# $ make run
 run:
 	./$(APPNAME) --dot afd.txt --output afd.dot
 
 reconhecer:
-	./$(APPNAME) --reconhecer afd.txt palavras.txt --output palavras-reconhecidas.txt
+	./$(APPNAME) --reconhecer afd.txt palavras.txt --output resultados/palavras-reconhecidas.txt
 
 exportar:
-	./$(APPNAME) --dot afd.txt --output afd.dot
+	./$(APPNAME) --dot afd.txt --output resultados/afd.dot
 
 complemento:
-	./$(APPNAME) --complemento afd.txt --output afd-complemento.txt
+	./$(APPNAME) --complemento afd.txt --output resultados/afd-complemento.txt
 
 minimizar:
-	./$(APPNAME) --minimizacao afd.txt --output afd-minimizacao.txt
+	./$(APPNAME) --minimizacao afd.txt --output resultados/afd-minimizacao.txt
 
 # Remover arquivos de compilação:
 # $ make clean
 clean:
-	rm -rf $(APPNAME) $(OBJ)/* $(TEST)/bin/*
+	rm -rf $(APPNAME) $(OBJ)/*

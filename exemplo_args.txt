@@ -1,7 +1,0 @@
-
-
-
-./afdtool --dot afd.txt --output afd.dot
-./afdtool --complemento afd1.txt --output afd1-complemento.txt
-./afdtool --minimizacao afd1.txt --output afd1-minimizacao.txt
-./afdtool --reconhecer afd.txt palavras.txt --output palavras-reconhecidas.txt

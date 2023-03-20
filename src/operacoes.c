@@ -1,14 +1,20 @@
 /******************************************************************************
-  MODULO RESPONSAVEL POR CHAMAR AS OPERACOES DO PROGRAMA
+  MODULO RESPONSAVEL POR CHAMAR AS FUNCIONALIDADES DO PROGRAMA
+
+
+  Funcionalidades implementadas:
+  
+  1) Exportar como dot;
+  2) Gerar complemento de um AFD;
+  3) Minimizar um AFD;
+  4) Reconhecer um conjunto de palavras para um AFD de entrada;
+
 *******************************************************************************/
 
 #include "operacoes.h"
 
-
-
 void op_exportarDOT(char* inputFile, char* outputFile) {
   printf("\n\t  -- OP Exportar .dot -- \n");
-  printf("\n  --input %s --output %s \n\n", inputFile, outputFile);
 
   AFD *Afd;
   Afd = Afd_ler(inputFile);
@@ -21,7 +27,6 @@ void op_exportarDOT(char* inputFile, char* outputFile) {
 
 void op_complemento(char* inputFile, char* outputFile) {
   printf("\n\t  -- OP complemento -- \n");
-  printf("\n  --input %s --output %s \n\n", inputFile, outputFile);
   
   AFD *Afd;
   Afd = Afd_ler(inputFile);
@@ -36,7 +41,6 @@ void op_complemento(char* inputFile, char* outputFile) {
 
 void op_minimizar(char* inputFile, char* outputFile) {
   printf("\n\t  -- OP MINIMIZAR -- \n");
-  printf("\n  --input %s --output %s \n\n", inputFile, outputFile);
 
   AFD *Afd;
   Afd = Afd_ler(inputFile);
@@ -54,7 +58,6 @@ void op_minimizar(char* inputFile, char* outputFile) {
 
 void op_reconhecer_palavra(char* inputAFD, char* inputFile, char* outputFile) {
   printf("\n\t  -- OP RECONHECER PALAVRA -- \n");
-  printf("\n  --AFD: %s --input %s --output %s \n\n", inputAFD, inputFile, outputFile);
 
   AFD *Afd;
   Afd = Afd_ler(inputAFD);

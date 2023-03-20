@@ -1,0 +1,10 @@
+
+1) Compilacao com Makefile
+  $ make
+
+2) Executa a aplicação com os argumentos especificos de cada operação:
+
+  $ ./afdtool --dot afd.txt --output afd.dot
+  $ ./afdtool --complemento afd1.txt --output afd1-complemento.txt
+  $ ./afdtool --minimizacao afd1.txt --output afd1-minimizacao.txt
+  $ ./afdtool --reconhecer afd.txt palavras.txt --output palavras-reconhecidas.txt
