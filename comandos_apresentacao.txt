@@ -1,0 +1,35 @@
+
+1) Compilacao com Makefile
+   make
+
+2) Executa a aplicação com os argumentos especificos de cada operação:
+
+2.1) Gerar o grafo para o afd.txt
+  ./afdtool --dot afd.txt --output afd.dot
+  dot -Tpdf afd.dot > afd.pdf
+
+2.1) Gerar o complemento para o afd.txt, em seguida gerar o grafo:
+
+  ./afdtool --complemento afd.txt --output afd-complemento.txt
+  ./afdtool --dot afd-complemento.txt --output afd-complemento.dot
+  dot -Tpdf afd-complemento.dot > afd-complemento.pdf
+
+
+2.2) Gerar a minimizacao para o afd.txt, em seguida gerar o grafo:
+
+  ./afdtool --minimizacao afd.txt --output afd-minimizacao.txt
+  ./afdtool --dot afd-minimizacao.txt --output afd-minimizacao.dot
+  dot -Tpdf afd-minimizacao.dot > afd-minimizacao.pdf
+
+
+3.0) Reconhecer as palavras p/ os afd original e seus derivados:
+
+  ./afdtool --reconhecer afd.txt palavras.txt --output palavras-reconhecidas1.txt
+  ./afdtool --reconhecer afd-complemento.txt palavras.txt --output palavras-reconhecidas2.txt
+  ./afdtool --reconhecer afd-minimizacao.txt palavras.txt --output palavras-reconhecidas3.txt
+
+3) Gerando GraphViz
+
+dot -Tpdf afd.dot > afd.pdf
+dot -Tpdf afd-complemento.dot > afd-complemento.pdf
+dot -Tpdf afd-minimizacao.dot > afd-minimizacao.pdf

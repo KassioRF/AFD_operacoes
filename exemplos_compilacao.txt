@@ -8,3 +8,7 @@
   $ ./afdtool --complemento afd1.txt --output afd1-complemento.txt
   $ ./afdtool --minimizacao afd1.txt --output afd1-minimizacao.txt
   $ ./afdtool --reconhecer afd.txt palavras.txt --output palavras-reconhecidas.txt
+
+3) Gerando GraphViz
+
+dot -Tpdf afd.dot > afd.pdf

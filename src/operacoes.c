@@ -25,6 +25,7 @@ void op_exportarDOT(char* inputFile, char* outputFile) {
 
 }
 
+
 void op_complemento(char* inputFile, char* outputFile) {
   printf("\n\t  -- OP complemento -- \n");
   
