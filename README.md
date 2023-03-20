@@ -4,7 +4,9 @@ FTC - Trabalho Prático 2023
 
 ## Compilação:
 1) Gera os binários com Makefile
-  $ make
+  ```
+    $ make
+  ```
 
 2) Executa a aplicação com os argumentos especificos de cada operação:
   ```
