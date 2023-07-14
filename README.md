@@ -1,6 +1,8 @@
 # AFD_operacoes
 
-FTC - Trabalho Prático 2023
+Trabalho Prático - Fundamentos Teóricos da Computação 2023.1 
+ 
+ - O objetivo deste projeto é abordar a representação prática dos Automatos Finitos Determinísticos (AFDs) incluíndo operações de leitura, escrita, reconhecimento de palavras, e operações entre AFDS.
 
 ## Compilação:
 1) Gera os binários com Makefile
