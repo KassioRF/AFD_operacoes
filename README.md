@@ -1,7 +1,9 @@
-# AFD_operacoes
+# CSI106TP: Automatos Finitos Determinísticos
 
-Trabalho Prático - Fundamentos Teóricos da Computação 2023.1 
- 
+## CSI106 - Fundamentos Teóricos da Computação :: 2022.2
+
+Trabalho Prático - Automatos Finitos Determinísticos
+
  - O objetivo deste projeto é abordar a representação prática dos Automatos Finitos Determinísticos (AFDs) incluíndo operações de leitura, escrita, reconhecimento de palavras, e operações entre AFDS.
 
 ## Compilação:
